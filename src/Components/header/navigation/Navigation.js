@@ -1,40 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavLink, withRouter } from "react-router-dom";
-import { logOut } from "../../../redux/auth/authActions";
+import { withRouter } from "react-router-dom";
 import mainRoutes from "../../../routes/mainRoutes";
+import UserInfo from "../../userInfo/UserInfo";
+import NavigationListItem from "./NavigationListItem";
 import { NavigationContainer } from "./NavigationStyled";
 
-const Navigation = ({ location, logOut }) => {
+const Navigation = ({ location, isAuth }) => {
   return (
-    
     <NavigationContainer>
-      <ul className="list">
+      <nav className="nav">
+       <ul className="list">
         {mainRoutes.map(item => (
-          <li className="listItem" key={item.path}>
-            <NavLink
-              to={{
-                pathname: item.path,
-                state: {
-                  from: location.pathname
-                }
-              }}
-              className="link"
-              activeClassName="activeLink"
-              exact={item.exact}
-            >
-              {item.name}
-            </NavLink>
-          </li>
+          <NavigationListItem item={item} location={location} key={item.path} isAuth={isAuth} />
         ))}
-        <li>
-          <button type="button" onClick={()=>logOut()}>
-            LogOut
-          </button>
-        </li>
       </ul>
+      {isAuth && <UserInfo />} 
+      </nav>
     </NavigationContainer>
   );
 };
 
-export default connect(null, {logOut})(withRouter(Navigation));
+const mapStateToProps = state => {
+  return {
+    isAuth: state.auth.token.idToken
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Navigation));

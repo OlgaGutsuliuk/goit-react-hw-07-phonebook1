@@ -1,28 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import HeartIcon from "../../shared/icons/HeartIcon/HeartIcon";
+import { logOut } from "../../redux/auth/authActions";
+import { NavigationContainer } from "../header/navigation/NavigationStyled";
 
-const UserInfo = ({ user, isAuth }) => {
-  const { email } = user;
-  return isAuth ? (
+const UserInfo = ({ email, isAuth, logOut }) => {
+  return (
     <>
-      <Link
-        to="/wishlist"
-        className="relative text-gray-700 hover:text-gray-600 "
-      >
-        <HeartIcon className="h-5 w-5" />
-      </Link>
-      <div>
-        <strong>{email}</strong>
+      <NavigationContainer>
+        <div className="userInfo">
+        <p  className="userItem">{email}</p>
+      {isAuth && ( 
+        <button className="userBtn" type="button" onClick={() => logOut()}>
+          LogOut
+        </button>
+      )}
       </div>
+      </NavigationContainer> 
     </>
-  ) : null;
+  );
 };
 
-const mapStateToProps = (state) => ({
-  isAuth: Boolean(state.auth.accessToken),
-  user: state.auth.user,
-});
+const mapStateToProps = state => {
+  return {
+    email: state.auth.token.email,
+    isAuth: state.auth.token.idToken
+  };
+};
 
-export default connect(mapStateToProps, null)(UserInfo);
+export default connect(
+  mapStateToProps,
+  { logOut }
+)(UserInfo);

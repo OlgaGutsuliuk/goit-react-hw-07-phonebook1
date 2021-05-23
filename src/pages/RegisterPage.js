@@ -9,8 +9,6 @@ import { registerOperations } from "../redux/auth/authOperations";
 const isStrongPassword = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required(),
-  lastName: Yup.string().required(),
   email: Yup.string().email().required(),
   password: Yup.string()
     .required()
@@ -18,9 +16,6 @@ const validationSchema = Yup.object().shape({
       isStrongPassword,
       "Пароль должен содержать минимум 8 символов, заглавную букву, буквы в нижнем регистре, 1 число и 1 спецсимвол!"
     ),
-  confirmPassword: Yup.string()
-    .required()
-    .oneOf([Yup.ref("password"), null], "Пароли должны совпадать!"),
 });
 const RegisterPage = ({ registerOperations }) => {
   return (
@@ -37,46 +32,16 @@ const RegisterPage = ({ registerOperations }) => {
             <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
             <Formik
               initialValues={{
-                firstName: "",
-                lastName: "",
+             
                 email: "",
                 password: "",
-                confirmPassword: "",
+               
               }}
               validationSchema={validationSchema}
               onSubmit={registerOperations}
             >
               <Form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                <div className="mb-4 md:flex md:justify-between">
-                  <div className="mb-4 md:mr-2 md:mb-0">
-                    <label
-                      className="block mb-2 text-sm font-bold text-gray-700"
-                      htmlFor="firstName"
-                    >
-                      First Name
-                    </label>
-                    <TextInput
-                      name="firstName"
-                      id="firstName"
-                      type="text"
-                      placeholder="First Name"
-                    />
-                  </div>
-                  <div className="md:ml-2">
-                    <label
-                      className="block mb-2 text-sm font-bold text-gray-700"
-                      htmlFor="lastName"
-                    >
-                      Last Name
-                    </label>
-                    <TextInput
-                      name="lastName"
-                      id="lastName"
-                      type="text"
-                      placeholder="Last Name"
-                    />
-                  </div>
-                </div>
+                
                 <div className="mb-4">
                   <label
                     className="block mb-2 text-sm font-bold text-gray-700"
@@ -102,20 +67,6 @@ const RegisterPage = ({ registerOperations }) => {
                     <TextInput
                       name="password"
                       id="password"
-                      type="password"
-                      placeholder="******************"
-                    />
-                  </div>
-                  <div className="md:ml-2">
-                    <label
-                      className="block mb-2 text-sm font-bold text-gray-700"
-                      htmlFor="c_password"
-                    >
-                      Confirm Password
-                    </label>
-                    <TextInput
-                      name="confirmPassword"
-                      id="c_password"
                       type="password"
                       placeholder="******************"
                     />

@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Link to="/">PHONE_BOOK</Link>
-        <Navigation />
+        <Navigation/>
     </HeaderContainer>
   );
 };

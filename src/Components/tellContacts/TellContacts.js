@@ -35,9 +35,7 @@ class TellContacts extends Component {
       <>
         {this.props.error && <h2>{this.props.error}</h2>}
         {this.props.isLoading && <h2>Loading....</h2>}
-        <h2>Phonebook</h2>
         <ContactsForm addTelContact={this.addContacts} checkDublicateName={this.checkDublicateName}/>
-        <h2>Contacts</h2>
         <TelContactFilter filter={this.props.filter} setFilter={this.setFilter} />
 
         <ContactsList telNumbers={this.props.filteredContacts} deleteTelContact={this.deleteContacts} />

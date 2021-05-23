@@ -21,5 +21,32 @@ margin-right: 30px;
 .activeLink{
   color: blue;  
 }
+.userInfo{
+display: flex;
+}
+
+.userItem{
+  display: flex;
+  margin-right: 15px;
+  justify-content: center;
+align-items: center;
+
+}
+
+.userBtn{
+ display: inline-flex;
+  color: #fff;
+  background-color: #3f51b5;
+  padding: 2px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.nav{
+  display: flex;
+justify-content: center;
+align-items: center;
+}
 
 `
